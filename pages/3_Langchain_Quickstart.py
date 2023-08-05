@@ -1,5 +1,5 @@
 import streamlit as st
-from langchain.llms import OpenAI
+from llmflows.llms import OpenAI
 
 st.title("🦜🔗 Langchain Quickstart App")
 
@@ -9,8 +9,13 @@ with st.sidebar:
 
 
 def generate_response(input_text):
-    llm = OpenAI(temperature=0.7, openai_api_key=openai_api_key)
-    st.info(llm(input_text))
+    llm = OpenAI(api_key=openai_api_key)
+    result, call_data, model_config = llm.generate(
+        prompt="Generate a cool title for an 80s rock song"
+    )
+    st.info(llm(result))
+    st.info(llm(call_data))
+    st.info(llm(model_config))
 
 
 with st.form("my_form"):
